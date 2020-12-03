@@ -1,0 +1,32 @@
+
+.visor{
+    border:1px solid #ccc;
+    border-radius: 10rem;
+    font-size:4rem;
+}
+.texh{
+    font-size:6rem;
+    padding-right: 4rem;
+}
+
+.btn{
+    width: 5rem;
+    height: 5rem;
+    font-size:2.8rem;
+}
+
+
+
+.colorBoton {
+  animation-name: anim;
+  animation-duration: 0.7s;
+ /*  animation-iteration-count: infinite; */
+}
+
+@keyframes anim{
+    0% {background-color: #6c757d;} /*Amarillo*/
+   25% {background-color: #f80;} /*Naranja*/
+   50% {background-color: #000;} /*Negro*/
+   75% {background-color: #f80;} /*Otra vez naranja*/
+  100% {background-color: #6c757d;} /*Otra vez amarillo*/
+}
