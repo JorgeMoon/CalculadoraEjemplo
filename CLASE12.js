@@ -23,7 +23,7 @@ let btnKey = {
     "9":57,
     "+":43,
     "-":45,
-    "x":42,
+    "X":42,
     "/":47,
     "=":13,
     "C":46
@@ -42,7 +42,7 @@ let btnNum = {
     nueve:9,
     suma:"+",
     resta:"-",
-    producto:"x",
+    producto:"*",
     division:"/",
     resultado:"=",
     borrar:"C"
@@ -131,7 +131,7 @@ function saveImputNumber(x){
 
    n = num.join("");
 
-        /* FUNCION "=" */
+        /* Control de "=" y calcular */
         if(x=="13"){
             num.pop(); //elimino ultimo elemento "="
             n1 = num.join("");
@@ -142,9 +142,9 @@ function saveImputNumber(x){
 
         /* FUNCION BORRAR "C" */
         if(x=="46"){        //suprimir o backspace || x=="8" 99
-        n =0;
-        num=[];
-        $("#preview").html("");     
+            n =0;
+            num=[];
+            $("#preview").html("");     
         }
     return n;
 };
