@@ -26,17 +26,20 @@ let btnKey = {
     "X":42,
     "/":47,
     "=":13,
-    "C":46
+    ".":46,
+    "C":67,
+    "CE":66
 }
 //pescar teclado
 $(document).on('keypress',function(e) {
-   // console.log(e.keyCode)
+    //console.log("aprete tecla" +e.keyCode)
     comprobarTeclado(e);
-});
+}); 
+
 /* Pescar el click */
 $("button").click(function(){
    let x = $(this).attr("id")
-   // console.log("aprete un boton --> "+ x)
+   //console.log("cliquie un boton --> "+ x)
    comprobarClick(x)
 }); 
 
@@ -45,7 +48,7 @@ function comprobarClick(x){
     for (const key in btnKey) {
         if (btnKey.hasOwnProperty(key)) {
              if(btnKey[key] == x){
-                console.log("comprobarClick->>"+x+"key"+key);           
+               // console.log("comprobarClick->>"+x+"key"+key);           
                saveImput(key);
                updateVisor(x);
                animacionBtn(x);
@@ -60,7 +63,7 @@ function comprobarTeclado(e){
              if(btnKey[key] == e.keyCode){
                 btn = e.keyCode;
                 ID = btn;
-                console.log("keypress --> btnKey[key] = "+ btn + "key = "+key)
+               // console.log("keypress --> btnKey[key] = "+ btn + "key = "+key)
                 saveImput(key);
                 updateVisor(e.keyCode); 
                  //console.log(ID);
@@ -98,9 +101,7 @@ function updateVisor(x){
 
 /* FUNCIONES DE CALCULO */
 function saveImputNumber(x){
-    /* cuando x es un producto */
-   // if(x=="X"){x="*"}
-  
+   console.log(x)
     n = num.join("");
 
         /* Control de "=" y calcular */
@@ -114,16 +115,45 @@ function saveImputNumber(x){
             $("#preview").html(n1);       
         }
 
-        borrar(x);
+        if(x=="67"||x=="8"){
+
+            num.pop(); //elimino ultimo elemento "C"
+            n = borrarUno(num);
+        }
+
+        if(x=="66"){
+            n=borrarTodo(num);
+        }
 
     return n;
 };
 
-function borrar(x){
-        /* FUNCION BORRAR "C" */
-        if(x=="46"){        //suprimir o backspace || x=="8" 99
-            num.pop(); //elimino ultimo elemento
-            n = num.join("");
-            $("#preview").html("");     
-        }
+/* FUNCION BORRAR "C" */
+function borrarUno(num){
+
+   if((num.length)>1){ 
+        num.pop(); //elimino ultimo elemento
+        n = num.join("");
+        $("#preview").html("");     
+
+    return n;
+    }
+
+   else{
+        num.pop();
+        n = "0";
+        console.log("num en else"+num)
+        $("#preview").html("");
+    return n;
+   } 
 }
+
+/* FUNCION BORRAR "CE" */
+function borrarTodo(num){
+    
+    num=[];
+    //num.pop(); //elimino ultimo elemento
+    n = 0;
+    $("#preview").html("");
+        
+} 
