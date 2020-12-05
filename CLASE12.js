@@ -7,7 +7,7 @@ let ID2 =[];
 let n ="";
 let n1 ="";
 
-$("#resultado").html(0);
+$("#resultado").html(0); // Para siempre tener el visor con un dato
 
 //objeto de claves
 let btnKey = {
@@ -28,25 +28,6 @@ let btnKey = {
     "=":13,
     "C":46
 }
-//objeto de btn a numero
-let btnNum = {
-    cero:0,
-    uno:1,
-    dos:2,
-    tres:3,
-    cuatro:4,
-    cinco:5,
-    seis:6,
-    siete:7,
-    ocho:8,
-    nueve:9,
-    suma:"+",
-    resta:"-",
-    producto:"*",
-    division:"/",
-    resultado:"=",
-    borrar:"C"
-}
 //pescar teclado
 $(document).on('keypress',function(e) {
    // console.log(e.keyCode)
@@ -64,9 +45,9 @@ function comprobarClick(x){
     for (const key in btnKey) {
         if (btnKey.hasOwnProperty(key)) {
              if(btnKey[key] == x){
-                 //console.log("comprobarClick->>"+x+"key"+key);           
+                console.log("comprobarClick->>"+x+"key"+key);           
                saveImput(key);
-               mostrar(x);
+               updateVisor(x);
                animacionBtn(x);
             } 
         }
@@ -79,27 +60,16 @@ function comprobarTeclado(e){
              if(btnKey[key] == e.keyCode){
                 btn = e.keyCode;
                 ID = btn;
-                //console.log("keypress --> btnKey[key] = "+ btn + "key = "+key)
+                console.log("keypress --> btnKey[key] = "+ btn + "key = "+key)
                 saveImput(key);
-                mostrar(e.keyCode);
+                updateVisor(e.keyCode); 
                  //console.log(ID);
                  animacionBtn(ID);  
             } 
         }
     } 
 };
-function mostrar(x) {
-    
-   for (const keyEvento in btnNum) {
-       if (btnNum.hasOwnProperty(keyEvento)) {
-           const element = btnNum[keyEvento];
-           if(element == keyEvento){
-          // console.log(keyEvento)
-           }
-       }
-   }
-   updateVisor(x); 
-}; 
+ 
 function saveImput(key){
     num.push(key);
 };
@@ -128,23 +98,32 @@ function updateVisor(x){
 
 /* FUNCIONES DE CALCULO */
 function saveImputNumber(x){
-
-   n = num.join("");
+    /* cuando x es un producto */
+   // if(x=="X"){x="*"}
+  
+    n = num.join("");
 
         /* Control de "=" y calcular */
         if(x=="13"){
+
             num.pop(); //elimino ultimo elemento "="
             n1 = num.join("");
+            n1 = n1.replaceAll("X", '*')//reeplazar X --> * para poder evaluar la cadena 
                 //evaluo cadena
-                n1 = eval(n1);
-                $("#preview").html(n1);       
+            n1 = eval(n1);
+            $("#preview").html(n1);       
         }
 
-        /* FUNCION BORRAR "C" */
-        if(x=="46"){        //suprimir o backspace || x=="8" 99
-            n =0;
-            num=[];
-            $("#preview").html("");     
-        }
+        borrar(x);
+
     return n;
 };
+
+function borrar(x){
+        /* FUNCION BORRAR "C" */
+        if(x=="46"){        //suprimir o backspace || x=="8" 99
+            num.pop(); //elimino ultimo elemento
+            n = num.join("");
+            $("#preview").html("");     
+        }
+}
